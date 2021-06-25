@@ -1,1 +1,1 @@
-# JordanProxy
+# Jordan-Proxy
