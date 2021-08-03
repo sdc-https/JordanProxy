@@ -26,3 +26,6 @@ dist/
 
 #Keys
 *.pem
+
+#New Relic
+newrelic.js
