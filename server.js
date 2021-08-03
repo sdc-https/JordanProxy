@@ -1,7 +1,14 @@
+const newrelic = require('newrelic');
 const express = require('express');
 const app = express();
-const port = 3000;
 const path = require('path');
+const  createProxyMiddleware  = require('http-proxy-middleware');
+
+//Config
+const port = 3000;
+const HOST = 'localhost';
+const api = `http://${HOST}:3004`
+
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,6 +26,11 @@ app.get('*/dp/:productId', (req, res) => {
 app.get('/:productId', (req, res) => {
   res.sendFile(path.join(__dirname, '/./public/index.html'))
 });
+
+//Proxy Middleware
+app.use('/reviews', createProxyMiddleware({
+  target: api
+}));
 
 app.listen(port, () => {
   console.log(`Server now listening at http://localhost:${port}`);
