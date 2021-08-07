@@ -14,7 +14,8 @@ export let options = {
   },
 };
 export default function () {
-  const BASE_URL = `http://localhost:3000/dp/9000001`;
+  let rndId = Math.floor(Math.random() * (10000000 - 9000000) + 9000000);
+  const BASE_URL = `http://localhost:3000/reviews/${rndId}`;
   http.get(`${BASE_URL}`);
 }
 

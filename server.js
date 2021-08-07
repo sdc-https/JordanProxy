@@ -2,7 +2,9 @@ const newrelic = require('newrelic');
 const express = require('express');
 const app = express();
 const path = require('path');
-const  createProxyMiddleware  = require('http-proxy-middleware');
+const createProxyMiddleware  = require('http-proxy-middleware');
+const axios = require('axios');
+const morgan = require('morgan');
 
 //Config
 const port = 3000;
@@ -12,6 +14,7 @@ const api = `http://${HOST}:3004`
 
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(morgan('tiny'));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -29,9 +32,11 @@ app.get('/:productId', (req, res) => {
 
 //Proxy Middleware
 app.use('/reviews', createProxyMiddleware({
-  target: api
+  target: api,
+  changeOrigin:true
 }));
 
+
 app.listen(port, () => {
-  console.log(`Server now listening at http://localhost:${port}`);
+  console.log(`Server now listening at http://${HOST}:${port}`);
 });

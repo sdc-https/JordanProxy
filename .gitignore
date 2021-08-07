@@ -29,3 +29,6 @@ dist/
 
 #New Relic
 newrelic.js
+
+#Environment Variables
+.env
